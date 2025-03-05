@@ -1,0 +1,66 @@
+# mean
+def mean(numbers):
+    return sum(numbers) / len(numbers)
+
+# median
+def median(numbers):
+    numbers.sort()
+    n = len(numbers)
+    mid = n // 2
+    return (numbers[mid] + numbers[mid - 1]) / 2 if n % 2 == 0 else numbers[mid]
+
+# mode
+def mode(numbers):
+    freq = {}
+    for num in numbers:
+        freq[num] = freq.get(num, 0) + 1
+    max_count = max(freq.values())
+    for num, count in freq.items():
+        if count == max_count:
+            return num
+# variance
+def variance(numbers):
+    m = mean(numbers)
+    return sum((x - m) ** 2 for x in numbers) / len(numbers)
+
+# standard deviation
+def standard_deviation(numbers):
+    return variance(numbers) ** 0.5
+
+# euclidean distance
+def euclidean_distance(a, b):
+    if isinstance(a, (int, float)) and isinstance(b, (int, float)):
+        return abs(a - b)
+    return sum((x - y) ** 2 for x, y in zip(a, b)) ** 0.5
+
+# sigmoid
+def sigmoid(x):
+    return 1 / (1 + 2.71828 ** -x)
+data = [11,67,56,89,90,89,11,56,67]
+
+print(mean(data)) 
+print(median(data)) 
+print(mode(data))   
+print(variance(data))  
+print(standard_deviation(data)) 
+
+data1 = [34,67,56,90,78]
+data2 = [43, 56, 28,34,67]
+
+print("Euclidean Distance (between two lists):", euclidean_distance(data1, data2))
+# Sigmoid function example
+print("Sigmoid(0):", sigmoid(0))
+print("Sigmoid(2):", sigmoid(2))
+print("Sigmoid(-2):", sigmoid(-2))
+
+#output
+59.55555555555556
+67
+11
+834.6913580246912
+28.891025562009585
+Euclidean Distance (between two lists): 65.13831437794502
+Sigmoid(0): 0.5
+Sigmoid(2): 0.880796936729369
+Sigmoid(-2): 0.11920306327063111
+

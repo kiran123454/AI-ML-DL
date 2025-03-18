@@ -1,0 +1,154 @@
+///////////////////////////conditions/////////////////////////////////
+****************************************question #1***********************
+def get_grade(score):
+    if 90 <= score <= 100:
+        return "A"
+    elif 80 <= score <= 89:
+        return "B"
+    elif 70 <= score <= 79:
+        return "C"
+    elif 60 <= score <= 69:
+        return "D"
+    else:
+        return "F"
+
+# Example usage:
+print(get_grade(85))  
+print(get_grade(49))  
+
+B
+F
+
+************************************question #2***************************
+def cost_of_project(engraving, solid_gold):
+    if solid_gold:
+        base_cost = 100
+        cost_per_unit = 10
+    else:
+        base_cost = 50
+        cost_per_unit = 7
+    
+    engraving_cost = len(engraving) * cost_per_unit
+    return base_cost + engraving_cost
+
+# Example usage:
+print(cost_of_project("Love", True))  
+print(cost_of_project("Forever", False))
+
+140
+90
+
+***********************************question #3****************************
+def get_water_bill(num_gallons):
+    if num_gallons <= 8000:
+        price_per_1000 = 5
+    elif num_gallons <= 22000:
+        price_per_1000 = 6
+    elif num_gallons <= 30000:
+        price_per_1000 = 7
+    else:
+        price_per_1000 = 10
+    
+    return (num_gallons / 1000) * price_per_1000
+
+# Example usage:
+print(get_water_bill(10000)) 
+print(get_water_bill(25000)) 
+
+60.0
+175.0
+
+********************************question #4******************************
+def excess_sugar(sugars_g, food_type):
+    return sugars_g >= 10 if food_type == "solid" else sugars_g >= 5
+
+def excess_saturated_fat(saturated_fat_g, calories_per_serving):
+    return (saturated_fat_g * 9) / calories_per_serving >= 0.1
+
+def excess_trans_fat(trans_fat_g):
+    return trans_fat_g > 0
+
+def excess_sodium(sodium_mg, serving_size, food_type):
+    threshold = 300 if food_type == "solid" else 45
+    return sodium_mg >= threshold
+
+def excess_calories(calories_per_serving, serving_size, food_type):
+    threshold = 275 if food_type == "solid" else 70
+    return calories_per_serving >= threshold
+
+def get_labels(food_type, serving_size, calories_per_serving, saturated_fat_g, trans_fat_g, sodium_mg, sugars_g):
+    if excess_calories(calories_per_serving, serving_size, food_type):
+        print("EXCESO CALORÍAS")
+    if excess_sugar(sugars_g, food_type):
+        print("EXCESO AZÚCARES")
+    if excess_saturated_fat(saturated_fat_g, calories_per_serving):
+        print("EXCESO GRASAS SATURADAS")
+    if excess_trans_fat(trans_fat_g):
+        print("EXCESO GRASAS TRANS")
+    if excess_sodium(sodium_mg, serving_size, food_type):
+        print("EXCESO SODIO")
+
+# Example usage:
+get_labels("solid", 50, 300, 5, 0.2, 350, 12)
+
+EXCESO CALORÍAS
+EXCESO AZÚCARES
+EXCESO GRASAS SATURADAS
+EXCESO GRASAS TRANS
+EXCESO SODIO
+
+
+
+
+///////////////////////////LISTS////////////////////////////////////
+
+*****************************question # 1*********************************
+menu = ["spaghetti", "grilled cheese", "bean soup", "tacos", "chicken curry"]
+
+# Remove 'bean soup'
+menu.remove("bean soup")
+
+# Add 'roasted beet salad'
+menu.append("roasted beet salad")
+
+# Example output
+print(menu)
+
+['spaghetti', 'grilled cheese', 'tacos', 'chicken curry', 'roasted beet salad']
+
+**********************************question #2****************************
+num_customers = [120, 135, 98, 110, 150, 123, 145, 160, 172, 98, 105, 115, 125, 140, 155, 90, 132, 148, 175, 200, 85, 99, 104, 133, 144, 176, 189, 210, 95, 87]
+
+# Calculate averages
+avg_first_seven = sum(num_customers[:7]) / 7
+avg_last_seven = sum(num_customers[-7:]) / 7
+
+# Find max and min values
+max_month = max(num_customers)
+min_month = min(num_customers)
+
+# Example output
+print("Average first 7 days:", avg_first_seven)
+print("Average last 7 days:", avg_last_seven)
+print("Max customers in a day:", max_month)
+print("Min customers in a day:", min_month)
+
+Average first 7 days: 125.85714285714286
+Average last 7 days: 147.71428571428572
+Max customers in a day: 210
+Min customers in a day: 85
+
+********************************question # 3****************************
+def percentage_growth(num_users, yrs_ago):
+    past_users = num_users[-(yrs_ago + 1)]  # Get users from specified years ago
+    recent_users = num_users[-1]  # Get most recent users
+    return (recent_users - past_users) / past_users  # Correct growth formula
+
+# Example usage
+num_users = [920344, 1043553, 1204334, 1458996, 1503323, 1593432, 1623463, 1843064, 1930992, 2001078]
+print(percentage_growth(num_users, 1))   
+print(percentage_growth(num_users, 7))   ~0.66
+
+
+output: ~0.036
+~0.66

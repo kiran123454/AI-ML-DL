@@ -1,0 +1,241 @@
+/////////////////////////////////////////////// question ////////////////////////////////////////////////
+
+
+Project Description
+
+You will create a Command-Line Interface (CLI) Task Manager that allows users to:
+
+1. Add tasks
+
+2. Remove tasks.
+
+3. Update tasks
+
+4. View tasks
+
+All tasks should be stored in a file (tasks.txt) to ensure they persist between program runs. The project should be designed modularly, with separate files for file handling, task operations, and user interaction.
+
+Project Requirements
+
+Create folder in you existing repo with the name of task7
+
+Your project should follow this structure:
+
+Task7/
+
+task_manager.py #Main program (User Interface)
+
+task_operations.py #Functions for handling tasks
+
+file_handler.py #Functions for file handling
+
+tasks.txt # Stores tasks (auto-created by the program)
+
+README.md #Project documentation
+
+Implement File Handling (file_handler.py)
+
+Create a module to read and write tasks from a text file.
+
+* Ensure the file is created if it doesn't exist.
+
+Implement exception handling for file operations.
+
+Implement Task Operations (task_operations.py)
+
+Implement functions for:
+
+Adding a task
+
+Removing a task (by number)
+
+Updating a task
+
+Viewing all tasks
+
+Use exception handling to manage invalid user input (e.g., out-of-range numbers, non-integer values).
+
+Implement CLI Interaction (task_manager.py)
+
+Display a menu with options to:
+
+Add a task
+
+Remove a task
+
+Update a task
+
+View all tasks
+
+Exit the program
+
+Use a loop to keep the program running until the user chooses to exit.
+
+Call functions from task_operations.py to handle tasks.
+
+Test Your Program
+
+Run the program and ensure it correctly:
+
+Adds tasks
+
+Removes tasks Updates tasks
+
+Displays tasks
+
+Test different scenarios, including invalid inputs and empty task lists
+
+
+
+//////////////////////////////////////////////////////////// code //////////////////////////////////////////////////////////////////////
+
+
+import os
+
+# file_handler.py - Handles file operations
+def initialize_file():
+    """Ensure the tasks.txt file exists."""
+    if not os.path.exists("tasks.txt"):
+        with open("tasks.txt", "w") as file:
+            pass
+
+def read_tasks():
+    """Read tasks from the file and return as a list."""
+    try:
+        with open("tasks.txt", "r") as file:
+            return [line.strip() for line in file.readlines()]
+    except FileNotFoundError:
+        return []
+
+def write_tasks(tasks):
+    """Write a list of tasks back to the file."""
+    with open("tasks.txt", "w") as file:
+        file.writelines([task + "\n" for task in tasks])
+
+
+# task_operations.py - Handles task management
+def add_task(task):
+    """Add a task to the file."""
+    tasks = read_tasks()
+    tasks.append(task)
+    write_tasks(tasks)
+    print("\n✅ Task added successfully! ✅\n")
+
+def remove_task(task_number):
+    """Remove a task by its number."""
+    tasks = read_tasks()
+    try:
+        task_number = int(task_number)
+        if 1 <= task_number <= len(tasks):
+            del tasks[task_number - 1]
+            write_tasks(tasks)
+            print("\n❌ Task removed successfully! ❌\n")
+        else:
+            print("\n⚠️ Invalid task number. Please try again. ⚠️\n")
+    except ValueError:
+        print("\n⚠️ Please enter a valid task number. ⚠️\n")
+
+def update_task(task_number, new_task):
+    """Update a task by its number."""
+    tasks = read_tasks()
+    try:
+        task_number = int(task_number)
+        if 1 <= task_number <= len(tasks):
+            tasks[task_number - 1] = new_task
+            write_tasks(tasks)
+            print("\n✏️ Task updated successfully! ✏️\n")
+        else:
+            print("\n⚠️ Invalid task number. Please try again. ⚠️\n")
+    except ValueError:
+        print("\n⚠️ Please enter a valid task number. ⚠️\n")
+
+def view_tasks():
+    """Display all tasks."""
+    tasks = read_tasks()
+    if tasks:
+        print("\n📌 Your Tasks:")
+        print("-------------------------------")
+        for i, task in enumerate(tasks, 1):
+            print(f"{i}. {task}")
+        print("-------------------------------\n")
+    else:
+        print("\n📭 No tasks found. Add some! 📭\n")
+
+
+# task_manager.py - CLI user interaction
+initialize_file()
+
+def main():
+    while True:
+        print("\n==============================")
+        print("📋  Welcome to Task Manager  📋")
+        print("==============================")
+        print("1️⃣  Add Task")
+        print("2️⃣  Remove Task")
+        print("3️⃣  Update Task")
+        print("4️⃣  View Tasks")
+        print("5️⃣  Exit")
+        print("==============================")
+        choice = input("🎯 Enter your choice: ")
+        
+        if choice == "1":
+            task = input("📝 Enter the task: ")
+            add_task(task)
+        elif choice == "2":
+            view_tasks()
+            task_number = input("🔴 Enter task number to remove: ")
+            remove_task(task_number)
+        elif choice == "3":
+            view_tasks()
+            task_number = input("🔄 Enter task number to update: ")
+            new_task = input("✏️ Enter new task description: ")
+            update_task(task_number, new_task)
+        elif choice == "4":
+            view_tasks()
+        elif choice == "5":
+            print("\n👋 Exiting Task Manager. Have a great day! 👋\n")
+            break
+        else:
+            print("\n⚠️ Invalid choice. Please enter a number between 1-5. ⚠️\n")
+
+if __name__ == "__main__":
+    main()
+
+
+
+////////////////////////////////////////////////////////////// output ////////////////////////////////////////////////////////////////////////
+
+
+==============================
+📋  Welcome to Task Manager  📋
+==============================
+1️⃣  Add Task
+2️⃣  Remove Task
+3️⃣  Update Task
+4️⃣  View Tasks
+5️⃣  Exit
+==============================
+🎯 Enter your choice: 1
+📝 Enter the task: doing my task
+
+✅ Task added successfully! ✅
+
+
+==============================
+📋  Welcome to Task Manager  📋
+==============================
+1️⃣  Add Task
+2️⃣  Remove Task
+3️⃣  Update Task
+4️⃣  View Tasks
+5️⃣  Exit
+==============================
+🎯 Enter your choice: 3
+
+📌 Your Tasks:
+-------------------------------
+1. doing my gdsc task 7
+2. doing my task
+-------------------------------
+
+🔄 Enter task number to update: 5
